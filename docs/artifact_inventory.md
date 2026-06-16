@@ -22,6 +22,8 @@
 
 ## 关键来源
 
+路线级分数汇总保存在 `reports/route_retrospective_summary.csv`，用于支撑 `docs/experiment_retrospective.md` 中的“调整-效果-判断”分析。
+
 | 路线 | Metadata |
 | --- | --- |
 | Mirza v16 | `metadata/mirza_v16_kernel-metadata.json` |

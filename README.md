@@ -19,7 +19,8 @@
 ## 关键结论
 
 - 公榜 `0.86` 不是充分信号。本队公榜 `0.86` 的提交中，私榜只有 1 条保持 `0.86`，3 条为 `0.85`，19 条为 `0.84`，8 条为 `0.83`。
-- 最稳的提交是 `20260605_slot4_mirzayasir_best_086_v16_remote_output`，公榜 `0.86`，私榜 `0.86`。
+- 私榜最高两个提交是 [`finding nemo - Version 1`](https://www.kaggle.com/code/llccqq624/finding-nemo?scriptVersionId=322459680) 和 [`Best 0.86 | NVIDIA Nemotron Notebook - Version 16`](https://www.kaggle.com/code/mirzayasirabdullah07/nvidia-nemotron-notebook-final-code?scriptVersionId=324524084)。
+- `20260605_slot4_mirzayasir_best_086_v16_remote_output` 公榜 `0.86`，私榜 `0.86`，是唯一一条 public `0.86` 且 private 保持 `0.86` 的队内提交。
 - `Notebook finding nemo | Version 1` 公榜只有 `0.84`，私榜达到 `0.86`，说明另一半隐藏测试对保守 Kienngx/tinker 系 adapter 更友好。
 - `Refine QR-SVD`、`RepairCal`、`Asalhi/default20` 等公榜稳定 `0.86` 路线在私榜集中回落到 `0.84`，说明对公榜半区的微调校准没有可靠迁移。
 - `Biohack v62 public sparse-trust wrapper` 是少数公榜 `0.86`、私榜 `0.85` 的改动型路线，但仍未超过两个私榜 `0.86` 提交。
@@ -31,7 +32,7 @@
 | --- | --- |
 | `docs/competition_and_metric.md` | 赛题约束、数据分布、评分机制 |
 | `docs/final_results.md` | 私榜/公榜快照与提交结果 |
-| `docs/experiment_retrospective.md` | 路线复盘和失效信号 |
+| `docs/experiment_retrospective.md` | 按调整路线展开的“做了什么、效果、判断”复盘 |
 | `docs/artifact_inventory.md` | 本仓库收录与排除规则 |
 | `reports/` | Kaggle CLI 快照和派生统计表 |
 | `src/` | 关键 adapter 包装、压缩、校验脚本 |
@@ -47,6 +48,7 @@
 - `reports/private_leaderboard_show_2026-06-16_page200.csv`: 封榜后 `leaderboard --show` 分页快照，队伍在该快照中排名 121。
 - `reports/public_leaderboard_download_2026-06-16.csv`: Kaggle 下载的 public leaderboard，队伍公榜排名 422。
 - `reports/train_family_distribution.csv`: 训练集 9500 条样本的任务族统计。
+- `reports/route_retrospective_summary.csv`: 各实验路线的提交数、公榜/私榜分布和最高私榜结果。
 
 ## 核心代码
 

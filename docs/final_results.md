@@ -43,18 +43,18 @@
 | 0.86 | 0.84 | 19 |
 | 0.86 | 0.83 | 8 |
 
-## 私榜最佳提交
+## 私榜最高两个提交
 
 | Date | Description | Public | Private | 判读 |
 | --- | --- | ---: | ---: | --- |
-| 2026-06-05 06:58:51 | `20260605_slot4_mirzayasir_best_086_v16_remote_output` | 0.86 | 0.86 | 最终核心提交，赛前队内公榜最高，私榜保持 0.86 |
-| 2026-05-27 07:44:45 | `Notebook finding nemo | Version 1` | 0.84 | 0.86 | 公榜低估、私榜上升，保守 Kienngx/tinker 系路线 |
+| 2026-05-27 07:44:45 | [`Notebook finding nemo | Version 1`](https://www.kaggle.com/code/llccqq624/finding-nemo?scriptVersionId=322459680) | 0.84 | 0.86 | 公榜低估、私榜上升，保守 Kienngx/tinker 系路线 |
+| 2026-06-05 06:58:51 | [`20260605_slot4_mirzayasir_best_086_v16_remote_output`](https://www.kaggle.com/code/mirzayasirabdullah07/nvidia-nemotron-notebook-final-code?scriptVersionId=324524084) | 0.86 | 0.86 | 赛前队内公榜最高，私榜保持 0.86 |
 | 2026-05-27 13:49:06 | `symbolic2 lr12 v1 localcv825 symbolic-only validated` | 0.86 | 0.85 | 符号类轻量路线，私榜较稳但未到 0.86 |
 | 2026-06-06 08:05:41 | `localcal_rohan_anchor_lmhead_loraB_x1.01_structure_preserved` | 0.86 | 0.85 | 小幅结构保持校准，私榜优于多数 0.86 |
 | 2026-06-15 04:32:34 | `20260615_wrap_biohack_v62_public_sparse_trust_probe` | 0.86 | 0.85 | 改动型路线中私榜表现最好 |
 
 ## 最终选择复盘
 
-赛前根据队内公榜排序选择 Mirza v16 是有效的；该提交最终保持私榜 `0.86`。第二选择 Refine QR-SVD 的判断没有被私榜验证，`20260615_refine_psf_clean_qrsvd_valid_probe` 最终为公榜 `0.86`、私榜 `0.84`。
+赛前根据队内公榜排序选择 Mirza v16 是有效的；该提交最终保持私榜 `0.86`。第二选择 Refine QR-SVD 的判断没有被私榜验证，`20260615_refine_psf_clean_qrsvd_valid_probe` 最终为公榜 `0.86`、私榜 `0.84`。封榜后看，另一个最高私榜提交是早期 `finding nemo - Version 1`，不是最后几天公榜排序更靠前的 Refine/RepairCal 路线。
 
 最关键的误差来自把公榜 `0.86` 内部排序和路线稳定性当成私榜迁移信号。封榜后数据表明，公榜半区中后段的 adapter 微调、rank 压缩和轻量校准并不必然迁移到私榜半区。`Finding Nemo` 的反向表现说明另一半隐藏集对早期保守 adapter 锚点更友好。
