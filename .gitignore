@@ -4,11 +4,6 @@ __pycache__/
 .venv/
 venv/
 *.zip
-*.safetensors
-*.bin
-*.pt
-*.pth
-*.ckpt
 *.log
 *.tmp
 *.cache

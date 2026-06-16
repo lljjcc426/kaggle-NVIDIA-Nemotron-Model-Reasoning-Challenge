@@ -32,7 +32,9 @@
 | --- | --- |
 | `docs/competition_and_metric.md` | 赛题约束、数据分布、评分机制 |
 | `docs/final_results.md` | 私榜/公榜快照与提交结果 |
+| `docs/technical_postmortem.md` | 更完整的技术复盘：证据、路线、阶段、误差和模型 artifact |
 | `docs/experiment_retrospective.md` | 按调整路线展开的“做了什么、效果、判断”复盘 |
+| `docs/model_artifacts.md` | 模型/adapter 发布策略和 artifact manifest |
 | `docs/artifact_inventory.md` | 本仓库收录与排除规则 |
 | `reports/` | Kaggle CLI 快照和派生统计表 |
 | `src/` | 关键 adapter 包装、压缩、校验脚本 |
@@ -49,6 +51,11 @@
 - `reports/public_leaderboard_download_2026-06-16.csv`: Kaggle 下载的 public leaderboard，队伍公榜排名 422。
 - `reports/train_family_distribution.csv`: 训练集 9500 条样本的任务族统计。
 - `reports/route_retrospective_summary.csv`: 各实验路线的提交数、公榜/私榜分布和最高私榜结果。
+- `reports/route_detailed_statistics.csv`: 路线级均值、中位数、private-public delta 和最佳提交。
+- `reports/public_private_transition_matrix.csv`: public score 到 private score 的转移矩阵。
+- `reports/stage_score_summary.csv`: 不同实验阶段的分数汇总。
+- `reports/key_candidate_review.csv`: 最关键候选提交的逐条判读。
+- `reports/model_artifact_manifest.csv`: 模型/adapter 来源、大小、hash 和分数关联。
 
 ## 核心代码
 

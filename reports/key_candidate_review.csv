@@ -1,0 +1,8 @@
+description,date,route,publicScore,privateScore,private_minus_public,interpretation
+Notebook finding nemo | Version 1,2026-05-27 07:44:45.497000,Finding Nemo original / Kienngx-tinker SVD packaging,0.84,0.86,0.02,Public underestimated; private best; early conservative Kienngx/tinker anchor.
+20260605_slot4_mirzayasir_best_086_v16_remote_output,2026-06-05 06:58:51.647000,Mirza v16 / adapter-v32 epoch5 packaging,0.86,0.86,0.0,Only public 0.86 submission that held private 0.86.
+20260615_refine_psf_clean_qrsvd_valid_probe,2026-06-15 04:30:57.047000,Huikang-Asalhi-Refine QR/SVD family,0.86,0.84,-0.02,Public-stable QR-SVD route; private dropped to 0.84.
+20260615_repaircal_nojitter_s001925_center_fill_probe,2026-06-15 04:37:02.613000,Kienngx RepairCal calibration,0.86,0.84,-0.02,RepairCal public plateau point; private stayed 0.84.
+20260615_wrap_biohack_v62_public_sparse_trust_probe,2026-06-15 04:32:34.663000,Biohack sparse-trust,0.86,0.85,-0.01,Best modified/wrapper candidate outside top two; private 0.85.
+symbolic2 lr12 v1 localcv825 symbolic-only validated,2026-05-27 13:49:06.297000,Symbolic-focused SFT,0.86,0.85,-0.01,Light symbolic SFT transferred to private 0.85 but not 0.86.
+localcal_rohan_anchor_lmhead_loraB_x1.01_structure_preserved,2026-06-06 08:05:41.047000,Rohan/Kienngx small localcal scaling,0.86,0.85,-0.01,Small structural scaling transferred to private 0.85.

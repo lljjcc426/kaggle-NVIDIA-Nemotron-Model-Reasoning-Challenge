@@ -4,7 +4,7 @@
 
 | 目录 | 内容 | 说明 |
 | --- | --- | --- |
-| `reports/` | 榜单、提交记录、派生统计表 | 体积小、可审计、可复盘 |
+| `reports/` | 榜单、提交记录、派生统计表、模型 artifact manifest | 体积小、可审计、可复盘 |
 | `metadata/` | 关键 Kaggle kernel metadata | 记录 notebook id、输入模型、GPU/Internet 配置 |
 | `src/` | 清理后的关键代码路线 | 去除 notebook 展示文本、emoji、编码乱码和临时输出 |
 | `docs/` | 赛题约束、最终结果、路线复盘 | 直接基于本地文件和 Kaggle CLI 快照 |
@@ -22,7 +22,7 @@
 
 ## 关键来源
 
-路线级分数汇总保存在 `reports/route_retrospective_summary.csv`，用于支撑 `docs/experiment_retrospective.md` 中的“调整-效果-判断”分析。
+路线级分数汇总保存在 `reports/route_retrospective_summary.csv` 和 `reports/route_detailed_statistics.csv`，用于支撑 `docs/experiment_retrospective.md` 与 `docs/technical_postmortem.md` 中的“调整-效果-判断”分析。模型/adapter artifact 清单保存在 `reports/model_artifact_manifest.csv`。
 
 | 路线 | Metadata |
 | --- | --- |
