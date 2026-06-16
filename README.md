@@ -34,6 +34,7 @@
 | `docs/final_results.md` | 私榜/公榜快照与提交结果 |
 | `docs/technical_postmortem.md` | 更完整的技术复盘：证据、路线、阶段、误差和模型 artifact |
 | `docs/experiment_retrospective.md` | 按调整路线展开的“做了什么、效果、判断”复盘 |
+| `docs/all_submissions_operation_ledger.md` | 逐条提交 ledger：每次操作、公榜、私榜、delta 和结果判读 |
 | `docs/model_artifacts.md` | 模型/adapter 发布策略和 artifact manifest |
 | `docs/artifact_inventory.md` | 本仓库收录与排除规则 |
 | `reports/` | Kaggle CLI 快照和派生统计表 |
@@ -55,6 +56,7 @@
 - `reports/public_private_transition_matrix.csv`: public score 到 private score 的转移矩阵。
 - `reports/stage_score_summary.csv`: 不同实验阶段的分数汇总。
 - `reports/key_candidate_review.csv`: 最关键候选提交的逐条判读。
+- `reports/all_submission_operation_ledger.csv`: 98 条最终可取得提交的逐条操作复盘。
 - `reports/model_artifact_manifest.csv`: 模型/adapter 来源、大小、hash 和分数关联。
 
 ## 核心代码

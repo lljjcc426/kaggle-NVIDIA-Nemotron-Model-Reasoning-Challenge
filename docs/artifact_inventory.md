@@ -22,7 +22,7 @@
 
 ## 关键来源
 
-路线级分数汇总保存在 `reports/route_retrospective_summary.csv` 和 `reports/route_detailed_statistics.csv`，用于支撑 `docs/experiment_retrospective.md` 与 `docs/technical_postmortem.md` 中的“调整-效果-判断”分析。模型/adapter artifact 清单保存在 `reports/model_artifact_manifest.csv`。
+路线级分数汇总保存在 `reports/route_retrospective_summary.csv` 和 `reports/route_detailed_statistics.csv`，用于支撑 `docs/experiment_retrospective.md` 与 `docs/technical_postmortem.md` 中的“调整-效果-判断”分析。逐条提交复盘保存在 `reports/all_submission_operation_ledger.csv` 和 `docs/all_submissions_operation_ledger.md`。模型/adapter artifact 清单保存在 `reports/model_artifact_manifest.csv`。
 
 | 路线 | Metadata |
 | --- | --- |

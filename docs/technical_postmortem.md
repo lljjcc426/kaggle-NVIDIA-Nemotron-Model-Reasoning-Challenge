@@ -20,6 +20,7 @@
 | Route-level statistics | `reports/route_detailed_statistics.csv` |
 | Stage-level statistics | `reports/stage_score_summary.csv` |
 | Key candidate review | `reports/key_candidate_review.csv` |
+| Per-submission operation ledger | `reports/all_submission_operation_ledger.csv`, `docs/all_submissions_operation_ledger.md` |
 | Model artifact manifest | `reports/model_artifact_manifest.csv` |
 
 ## Competition Mechanics
@@ -55,6 +56,8 @@ The team moved from public rank 422 to final/private rank 121 at the same displa
 
 ## Score Distribution
 
+Kaggle CLI currently returns 98 final submission rows for this account/team; 91 rows are complete with private scores and 6 rows are evaluation errors. The pre-final local snapshot from 2026-06-15 contains 138 rows but does not include private scores, so public/private score review is based on the final 98-row snapshot.
+
 Among 91 complete submissions with private scores:
 
 | Private score | Count |
@@ -75,6 +78,36 @@ The public `0.86` group was highly heterogeneous:
 | 0.86 | 0.83 | 8 |
 
 Only one public `0.86` submission remained private `0.86`: `20260605_slot4_mirzayasir_best_086_v16_remote_output`.
+
+## All-Submission Operation Review
+
+Every final submission is reviewed in `reports/all_submission_operation_ledger.csv` and rendered in `docs/all_submissions_operation_ledger.md`. The ledger assigns each row to an operation category and records the observed result caused by that operation.
+
+Outcome counts:
+
+| Outcome | Count | Meaning |
+| --- | ---: | --- |
+| `middle_stable` | 26 | Valid private `0.84`-level result, not final-candidate quality |
+| `public_plateau_drop` | 19 | Public `0.86` did not transfer to private |
+| `weak_transfer` | 17 | Private `0.80-0.83`, weak route transfer |
+| `failed_low` | 14 | Private `0.60-0.79`, failed or unstable direction |
+| `error` | 6 | No valid scored artifact |
+| `near_top_private_lift` | 4 | Private improved to `0.85` from lower public |
+| `near_top_public_drop` | 3 | Public looked stronger than private, but still private `0.85` |
+| `near_top_stable` | 3 | Private `0.85` secondary route |
+| `severe_failure` | 3 | Private below `0.60` |
+| `private_best_hold` | 1 | Public `0.86` held private `0.86` |
+| `private_best_lift` | 1 | Public underestimated a private `0.86` artifact |
+| `unknown_private` | 1 | Complete row without usable privateScore |
+
+Operation-level read:
+
+- Adapter packaging produced the only public-validated private best: Mirza v16 `0.86 -> 0.86`.
+- Rank-32 SVD adapter packaging produced the largest positive public/private divergence: Finding Nemo original `0.84 -> 0.86`.
+- RepairCal produced six public `0.86` submissions but no private `0.85`, so the operation mainly stabilized public LB.
+- Localcal LoRA-B scaling produced private `0.85` at small scales, but larger or repeated variants reverted to `0.84`.
+- Training/custom SFT generated the largest set of weak and failed transfers, with no `0.86` result.
+- Public notebook packaging/probes created many valid `0.84` results but did not create a private-best artifact except through the specific Mirza/Finding Nemo sources.
 
 ## Best Private Submissions
 
