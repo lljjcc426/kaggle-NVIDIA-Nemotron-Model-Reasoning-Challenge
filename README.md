@@ -1,68 +1,116 @@
-# NVIDIA Nemotron Model Reasoning Challenge 复盘
+# NVIDIA Nemotron Model Reasoning Challenge
 
-本仓库整理 NVIDIA Nemotron Model Reasoning Challenge 的队伍实验记录、最终榜单快照、提交分数和关键代码路线。重点是封榜后的私榜验证，而不是公榜 0.86 段内的表面排序。
+本仓库是 NVIDIA Nemotron Model Reasoning Challenge 的赛后技术复盘与 artifact 索引，整理内容包括最终公榜/私榜结果、全部可取得提交的逐条复盘、实验路线分析、模型/adapter 来源、关键脚本和 Kaggle metadata。
 
-## 最终结果
+复盘目标是回答三个问题：
 
-| 项目 | 结果 |
+1. 哪些操作真实提升或保持了私榜表现。
+2. 哪些公榜 `0.86` 只是 public split plateau，没有迁移到 private split。
+3. 在无法本地完整评测 30B 模型的条件下，哪些提交选择策略更可靠。
+
+## Final Result
+
+| Item | Value |
 | --- | --- |
-| 队伍 | 你跑不过我你信吗 |
+| Team | 你跑不过我你信吗 |
 | TeamId | 15826879 |
-| 最终私榜分数 | 0.86 |
-| 最终私榜排名 | 121 |
-| 公榜分数 | 0.86 |
-| 公榜排名 | 422 |
-| 提交次数 | 132 |
+| Final private score | 0.86 |
+| Final private rank | 121 |
+| Public score | 0.86 |
+| Public rank | 422 |
+| Kaggle leaderboard submission count | 132 |
 
-最终私榜排名来自 `kaggle competitions leaderboard --show --csv --page-size 200` 的分页快照；公榜排名来自 Kaggle 下载的 `publicleaderboard` 文件。两份快照分别保存在 `reports/` 中。
+私榜排名来自 `kaggle competitions leaderboard --show --csv --page-size 200` 的封榜后快照；公榜排名来自 Kaggle 下载的 `publicleaderboard` 文件。对应原始文件保存在 `reports/`。
 
-## 关键结论
+## Best Private Submissions
 
-- 公榜 `0.86` 不是充分信号。本队公榜 `0.86` 的提交中，私榜只有 1 条保持 `0.86`，3 条为 `0.85`，19 条为 `0.84`，8 条为 `0.83`。
-- 私榜最高两个提交是 [`finding nemo - Version 1`](https://www.kaggle.com/code/llccqq624/finding-nemo?scriptVersionId=322459680) 和 [`Best 0.86 | NVIDIA Nemotron Notebook - Version 16`](https://www.kaggle.com/code/mirzayasirabdullah07/nvidia-nemotron-notebook-final-code?scriptVersionId=324524084)。
-- `20260605_slot4_mirzayasir_best_086_v16_remote_output` 公榜 `0.86`，私榜 `0.86`，是唯一一条 public `0.86` 且 private 保持 `0.86` 的队内提交。
-- `Notebook finding nemo | Version 1` 公榜只有 `0.84`，私榜达到 `0.86`，说明另一半隐藏测试对保守 Kienngx/tinker 系 adapter 更友好。
-- `Refine QR-SVD`、`RepairCal`、`Asalhi/default20` 等公榜稳定 `0.86` 路线在私榜集中回落到 `0.84`，说明对公榜半区的微调校准没有可靠迁移。
-- `Biohack v62 public sparse-trust wrapper` 是少数公榜 `0.86`、私榜 `0.85` 的改动型路线，但仍未超过两个私榜 `0.86` 提交。
-- 大规模自训练、merge/task arithmetic、未经验证的公开高分复刻和 custom-CoT 路线在本队提交记录中多次表现为 `0.83` 以下或结构性失败。
+| Submission | Public | Private | Route |
+| --- | ---: | ---: | --- |
+| [`finding nemo - Version 1`](https://www.kaggle.com/code/llccqq624/finding-nemo?scriptVersionId=322459680) | 0.84 | 0.86 | Original Finding Nemo / Kienngx-tinker adapter conversion |
+| [`Best 0.86 | NVIDIA Nemotron Notebook - Version 16`](https://www.kaggle.com/code/mirzayasirabdullah07/nvidia-nemotron-notebook-final-code?scriptVersionId=324524084) | 0.86 | 0.86 | Mirza v16 / adapter-v32 epoch5 packaging |
 
-## 仓库结构
+这两条定义了最终复盘的核心结论：私榜最稳的不是最后几天反复贴合公榜 `0.86` 的校准路线，而是对强 adapter 行为破坏最小的保守包装/转换路线。
 
-| 路径 | 内容 |
+## Key Findings
+
+- 公榜 `0.86` 不是充分信号。最终 complete 且有私榜分数的提交中，public `0.86` 的结果分化为：private `0.86` 1 条、`0.85` 3 条、`0.84` 19 条、`0.83` 8 条。
+- Mirza v16 是唯一一条 public `0.86` 且 private 保持 `0.86` 的队内提交。
+- Finding Nemo 原始版 public `0.84`、private `0.86`，说明 public split 低估了一个私榜稳健的早期 adapter 锚点。
+- RepairCal 产生 6 条 public `0.86`，但 private 全部低于 `0.85`，属于公榜稳定器，不是私榜提升器。
+- Refine QR-SVD / Huikang-Asalhi-default20 系能保持结构合规，也能多次达到 public `0.86`，但最终没有产生 private `0.86`。
+- Biohack sparse-trust public wrapper 是最好的改动型路线之一，public `0.86`、private `0.85`，仍低于两个 private `0.86` 的保守路线。
+- Training/custom SFT、merge/fusion/task arithmetic、公开高分复刻在本队提交中整体风险更高，多个方向出现 private `0.83` 以下或评测失败。
+
+## Evidence Snapshot
+
+| Evidence | File |
 | --- | --- |
-| `docs/competition_and_metric.md` | 赛题约束、数据分布、评分机制 |
-| `docs/final_results.md` | 私榜/公榜快照与提交结果 |
-| `docs/technical_postmortem.md` | 更完整的技术复盘：证据、路线、阶段、误差和模型 artifact |
-| `docs/experiment_retrospective.md` | 按调整路线展开的“做了什么、效果、判断”复盘 |
-| `docs/all_submissions_operation_ledger.md` | 逐条提交 ledger：每次操作、公榜、私榜、delta 和结果判读 |
-| `docs/model_artifacts.md` | 模型/adapter 发布策略和 artifact manifest |
-| `docs/artifact_inventory.md` | 本仓库收录与排除规则 |
-| `reports/` | Kaggle CLI 快照和派生统计表 |
-| `src/` | 关键 adapter 包装、压缩、校验脚本 |
+| Final submissions with private scores | `reports/submissions_final_2026-06-16_page200.csv` |
+| Per-submission operation review | `reports/all_submission_operation_ledger.csv` |
+| Rendered all-submission ledger | `docs/all_submissions_operation_ledger.md` |
+| Public-to-private transition matrix | `reports/public_private_transition_matrix.csv` |
+| Route-level detailed statistics | `reports/route_detailed_statistics.csv` |
+| Stage-level score summary | `reports/stage_score_summary.csv` |
+| Key candidate review | `reports/key_candidate_review.csv` |
+| Model / adapter artifact manifest | `reports/model_artifact_manifest.csv` |
+
+Kaggle CLI 当前可返回的最终提交记录为 98 条，其中 91 条 complete 且带 privateScore，6 条为 evaluation error。赛前本地快照保留过 138 条记录，但该快照没有 privateScore，因此公私榜对照复盘以封榜后 98 条最终记录为准。
+
+## Repository Structure
+
+| Path | Purpose |
+| --- | --- |
+| `docs/technical_postmortem.md` | 全面技术复盘：证据、赛题机制、路线、阶段、错误判断和 artifact 策略 |
+| `docs/experiment_retrospective.md` | 按实验路线展开的“做了什么、效果、判断”复盘 |
+| `docs/all_submissions_operation_ledger.md` | 每条提交的操作类别、公榜、私榜、delta 和结果判读 |
+| `docs/final_results.md` | 最终榜单位置、分数分布和最高提交 |
+| `docs/competition_and_metric.md` | 赛题约束、评分机制和训练集题型分布 |
+| `docs/model_artifacts.md` | 模型/adapter 发布策略，区分权重、config 和 `submission.zip` |
+| `docs/artifact_inventory.md` | 仓库收录、排除和来源清单 |
+| `reports/` | 原始 Kaggle 快照和派生统计表 |
+| `src/` | 关键 adapter 包装、rank-32 SVD、Refine、RepairCal、Biohack wrapper 脚本 |
 | `metadata/` | 关键 Kaggle kernel metadata |
 
-## 文件取舍
+## Operation Review
 
-仓库不包含 `submission.zip`、`adapter_model.safetensors`、Kaggle 缓存、临时拉取目录、训练中间产物和大体积本地输出。相关文件通常为 3GB 级别，且 GitHub 不适合承载这类二进制产物。可审计信息通过 Kaggle kernel metadata、提交记录、榜单快照、脚本和复盘表保留。
+所有最终可取得提交都已按操作类别复盘：
 
-## 数据快照
+| Operation category | Main result |
+| --- | --- |
+| Adapter packaging | Mirza v16 保持 public/private `0.86/0.86` |
+| Rank-32 SVD adapter packaging | Finding Nemo 原始版从 public `0.84` 提升到 private `0.86` |
+| RepairCal calibration | 多次 public `0.86`，private 集中在 `0.83-0.84` |
+| Localcal LoRA-B scaling | 小幅缩放可到 private `0.85`，但没有突破 `0.86` |
+| QR-SVD / adapter cleanup | 结构合规，最高 private `0.85` |
+| Sparse-trust wrapper | Biohack public wrapper 达到 private `0.85` |
+| Symbolic-focused SFT | 轻量训练最高 private `0.85` |
+| Merge/fusion/task arithmetic | 未产生 private `0.86`，多条回落 |
+| Training/custom SFT | 失败和弱迁移最多，没有 private `0.86` |
+| Public high-score reproduction | 公开高分标题无法直接迁移到本队提交环境 |
 
-- `reports/submissions_final_2026-06-16_page200.csv`: Kaggle CLI 拉取的最终提交记录，98 条记录，91 条 complete 且有私榜分数。
-- `reports/private_leaderboard_show_2026-06-16_page200.csv`: 封榜后 `leaderboard --show` 分页快照，队伍在该快照中排名 121。
-- `reports/public_leaderboard_download_2026-06-16.csv`: Kaggle 下载的 public leaderboard，队伍公榜排名 422。
-- `reports/train_family_distribution.csv`: 训练集 9500 条样本的任务族统计。
-- `reports/route_retrospective_summary.csv`: 各实验路线的提交数、公榜/私榜分布和最高私榜结果。
-- `reports/route_detailed_statistics.csv`: 路线级均值、中位数、private-public delta 和最佳提交。
-- `reports/public_private_transition_matrix.csv`: public score 到 private score 的转移矩阵。
-- `reports/stage_score_summary.csv`: 不同实验阶段的分数汇总。
-- `reports/key_candidate_review.csv`: 最关键候选提交的逐条判读。
-- `reports/all_submission_operation_ledger.csv`: 98 条最终可取得提交的逐条操作复盘。
-- `reports/model_artifact_manifest.csv`: 模型/adapter 来源、大小、hash 和分数关联。
+逐条明细见 `docs/all_submissions_operation_ledger.md`。
 
-## 核心代码
+## Model And Adapter Artifacts
 
-- `src/package_mirza_v16_adapter.py`: Mirza v16 adapter-v32-epoch-5 包装脚本。
-- `src/package_finding_nemo_rank32_svd.py`: Finding Nemo/Kienngx 系 rank-32 SVD adapter 转换脚本。
-- `src/package_huikang_refine_psf_clean.py`: Huikang/default20 QR-SVD Refine 路线。
-- `src/package_kienngx_repaircal_nojitter_strength001925.py`: Kienngx RepairCal no-jitter 路线。
-- `src/wrap_biohack_v62_public.py`: Biohack v62 public sparse-trust wrapper。
+本仓库允许发布模型/adapter 相关材料，但不发布 Kaggle `submission.zip`。`submission.zip` 是评测提交包，不是模型 artifact 本体。
+
+当前策略：
+
+- `adapter_config.json` 等小文件可以直接进入普通 Git。
+- `.safetensors`、`.bin`、`.pt`、`.pth`、`.ckpt` 已通过 `.gitattributes` 配置为 Git LFS。
+- `*.zip` 继续在 `.gitignore` 中排除，避免误传 Kaggle submission 包。
+- 模型/adapter 来源、大小、hash 和分数关联统一记录在 `reports/model_artifact_manifest.csv`。
+
+## Key Code
+
+| Script | Route |
+| --- | --- |
+| `src/package_mirza_v16_adapter.py` | Mirza v16 adapter-v32 epoch5 packaging |
+| `src/package_finding_nemo_rank32_svd.py` | Finding Nemo / Kienngx rank-32 SVD adapter conversion |
+| `src/package_huikang_refine_psf_clean.py` | Huikang/default20 Refine QR-SVD route |
+| `src/package_kienngx_repaircal_nojitter_strength001925.py` | Kienngx RepairCal no-jitter calibration |
+| `src/wrap_biohack_v62_public.py` | Biohack v62 public sparse-trust wrapper |
+
+## Bottom Line
+
+最终私榜验证表明，最有价值的策略不是继续微调 public `0.86` plateau，而是保留强 adapter 的原始泛化能力，并用不同来源的保守锚点覆盖 public/private split 差异。Mirza v16 证明了当前公榜强信号的价值；Finding Nemo 原始版证明了被公榜低估的早期 conservative adapter 在私榜上可能更稳。
