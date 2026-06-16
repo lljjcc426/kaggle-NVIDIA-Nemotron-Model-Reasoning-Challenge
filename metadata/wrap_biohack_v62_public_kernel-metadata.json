@@ -1,0 +1,19 @@
+{
+  "id": "llccqq624/nemotron-wrap-biohack-v62-public-v1",
+  "title": "Nemotron Wrap Biohack V62 Public V1",
+  "code_file": "wrap_biohack_v62_public.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "kernel_sources": [
+    "biohack44/nemotron-v62-d3-sparse-trust-finisher-attack"
+  ],
+  "competition_sources": [
+    "nvidia-nemotron-model-reasoning-challenge"
+  ],
+  "model_sources": []
+}

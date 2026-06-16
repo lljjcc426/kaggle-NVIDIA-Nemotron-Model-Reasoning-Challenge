@@ -1,0 +1,18 @@
+{
+  "id": "llccqq624/nemotron-repaircal-nj-s001925-v1",
+  "title": "Nemotron RepairCal NJ S001925 V1",
+  "code_file": "package_kienngx_repaircal_nojitter_strength001925.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "competition_sources": [
+    "nvidia-nemotron-model-reasoning-challenge"
+  ],
+  "model_sources": [
+    "kienngx/nemotron-nano-30b-trained/Triton/tinker-adapter/1"
+  ]
+}

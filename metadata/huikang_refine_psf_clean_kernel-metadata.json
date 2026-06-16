@@ -1,0 +1,25 @@
+{
+  "id": "llccqq624/nemotron-huikang-refine-psf-clean-v1",
+  "title": "Nemotron Huikang Refine PSF Clean V1",
+  "code_file": "package_huikang_refine_psf_clean.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [
+    "michaelkong537/wheel-linux",
+    "llccqq624/huikang-default20-adapter-mirror-20260614"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "nvidia-nemotron-model-reasoning-challenge"
+  ],
+  "model_sources": [
+    "metric/nemotron-3-nano-30b-a3b-bf16/Transformers/default/1"
+  ],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:c370a5ff133d162d17c2dca332b50f3e85c0b0ed1471ee18e98e3009eee80b08",
+  "machine_shape": "None"
+}
